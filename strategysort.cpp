@@ -1,27 +1,7 @@
-#include "sortclass.h"
+#include "strategysort.h"
 
-
-bool operator< (std::string str1, std::string str2) {
-    //bool res;
-    char cstr1[str1.size() + 1];
-    strcpy(cstr1, str1.c_str());
-    char cstr2[str2.size() + 1];
-    strcpy(cstr2, str2.c_str());
-    return strcmp(cstr1, cstr2) < 0;
-}
-bool operator> (std::string str1, std::string str2) {
-    return str2 < str1;
-}
-
-template <typename V>
-sortClass<V>::sortClass()
-{
-
-}
-
-template <typename V>
-void sortClass<V>::insertionSortVec(std::vector<V> &vec){
-    V key;
+void insertionSort::sort(std::vector<int> &vec){
+    int key;
     int j;
     for(int i = 1; i < vec.size(); i++){
         key = vec[i];
@@ -34,17 +14,15 @@ void sortClass<V>::insertionSortVec(std::vector<V> &vec){
     }
 }
 
-template <typename V>
-void sortClass<V>::swapVec (V * a, V * b) {
-    V tmp;
+void quickSort::swapVec (int * a, int * b) {
+    int tmp;
     tmp = * a;
     * a = * b;
     * b= tmp;
 }
 
-template <typename V>
-int sortClass<V>::partitionVec (std::vector<V> &vec, int l, int h) {
-    V line = vec[h];
+int quickSort::partitionVec (std::vector<int> &vec, int l, int h) {
+    int line = vec[h];
     int i = (l - 1);
 
     for (int j = l; j <= h - 1; j++) {
@@ -57,8 +35,7 @@ int sortClass<V>::partitionVec (std::vector<V> &vec, int l, int h) {
     return (i + 1);
 }
 
-template <typename V>
-void sortClass<V>::quickSVec(std::vector<V> &vec, int l, int h) {
+void quickSort::quickSVec(std::vector<int> &vec, int l, int h) {
     if (l < h) {
         int line = partitionVec(vec, l, h);
         quickSVec(vec, l, line - 1);
@@ -66,17 +43,15 @@ void sortClass<V>::quickSVec(std::vector<V> &vec, int l, int h) {
     }
 }
 
-template <typename V>
-void sortClass<V>::quickSortVec (std::vector<V> &vec) {
+void quickSort::sort(std::vector<int> &vec) {
     quickSVec(vec, 0, vec.size()-1);
 }
 
-template <typename V>
-void sortClass<V>::mergeVec(std::vector<V> &vec, int l, int c, int r) {
+void mergeSort::mergeVec(std::vector<int> &vec, int l, int c, int r) {
     int i, j, k;
     int n1 = c - l + 1;
     int n2 =  r - c;
-    V L[n1], R[n2];
+    int L[n1], R[n2];
     for (i = 0; i < n1; i++)
         L[i] = vec[l + i];
     for (j = 0; j < n2; j++)
@@ -109,17 +84,36 @@ void sortClass<V>::mergeVec(std::vector<V> &vec, int l, int c, int r) {
     }
 }
 
-template <typename V>
-void sortClass<V>::mergeSVec(std::vector<V> &vec, int left, int right) {
+void recMerge::mergeRecVec(std::vector<int> &vec, int left, int right) {
     if (left < right) {
         int center = left+(right-left)/2;
-        mergeSVec(vec, left, center);
-        mergeSVec(vec, center+1, right);
+        mergeRecVec(vec, left, center);
+        mergeRecVec(vec, center+1, right);
         mergeVec(vec, left, center, right);
     }
 }
 
-template <typename V>
-void sortClass<V>::mergeSortVec(std::vector<V> &vec) {
-    mergeSVec(vec, 0, vec.size()-1);
+void recMerge::sort(std::vector<int> &vec) {
+    mergeRecVec(vec, 0, vec.size()-1);
 }
+
+void iterationMerge::sort(std::vector<int> &vec) {
+    int n = vec.size();
+    int currSize;
+    int lStart;
+       for (currSize = 1; currSize <= n-1; currSize = 2 * currSize) {
+           for (lStart = 0; lStart < n-1; lStart += 2 * currSize) {
+               int mid = min(lStart + currSize - 1, n - 1);
+               int rEnd = min(lStart + 2 * currSize - 1, n - 1);
+               mergeVec(vec, lStart, mid, rEnd);
+           }
+       }
+}
+
+
+
+
+
+
+
+
