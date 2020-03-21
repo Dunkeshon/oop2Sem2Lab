@@ -53,7 +53,6 @@ class iterationMerge : public mergeSort
     int min(int x, int y) { return (x<y)? x :y; }
     void sort(std::vector<int> &vec);
 };
-
 //end of pattern Template Method
 
 // Класс для использования
@@ -74,7 +73,7 @@ class strategySort
  Если бы был бы меин то он выглядел бы как то так:
 int main()
 {
-  strategySort* p = new strategySort(new mergeSort);
+  strategySort* p = new strategySort(new quickSort);
   p->sort({2, 1, 7, 4});
   delete p;
   return 0;
