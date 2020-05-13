@@ -6,6 +6,7 @@
 #include <string>
 #include <vector>
 #include <cstring>
+#include <algorithm>
 
 using std::string;
 using std::vector;
@@ -36,6 +37,7 @@ class quickSort : public sortAlgorithms
 class mergeSort : public sortAlgorithms
 {
   public:
+    //make a constructor maybe
     virtual void sort(std::vector<int> &vec) = 0;
     //virtual void mergeSVec(std::vector<int> &vec, int left, int right) = 0;
     void mergeVec(std::vector<int> &vec, int l, int c, int r);//
@@ -54,6 +56,50 @@ class iterationMerge : public mergeSort
     void sort(std::vector<int> &vec);
 };
 //end of pattern Template Method
+
+class headCount : public sortAlgorithms
+{
+  public:
+    virtual void sort(std::vector<int> &vec, std::vector<int> vecHelp) = 0;
+    virtual ~headCount() {}
+};
+
+class SimplAlg: public headCount
+{
+  public:
+    virtual void sort(std::vector<int> &vec, std::vector<int> vecHelp);
+};
+
+class RobustAlg: public headCount
+{
+  public:
+    virtual void sort(std::vector<int> &vec, std::vector<int> vecHelp);
+};
+
+// Composite
+class CompositeHeadCount: public headCount
+{
+  public:
+    //make a constructor maybe
+    CompositeHeadCount( headCount* comp): headCountStrategy(comp) {}
+    void sort(std::vector<int> &vec) {
+        int maxim = vec[0];
+        for (int i = 1; i < vec.size(); i++) {
+            if (maxim < vec[i]) maxim = vec[i];
+        }
+        std::vector<int> c(maxim);
+        for (int i = 0; i <= maxim; i++) {
+            c[i] = 0;
+        }
+        for (int i = 0; i < vec.size(); i++) {
+            c[vec[i]] = c[vec[i]] + 1;
+        }
+        headCountStrategy->sort(vec, c);
+    }
+    ~CompositeHeadCount() { delete headCountStrategy; }
+  private:
+    headCount* headCountStrategy;
+};
 
 // Класс для использования
 class strategySort

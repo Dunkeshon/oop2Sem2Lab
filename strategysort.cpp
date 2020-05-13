@@ -110,6 +110,30 @@ void iterationMerge::sort(std::vector<int> &vec) {
        }
 }
 
+void SimplAlg::sort(std::vector<int> &vec, std::vector<int> vecHelp) {
+    int b = 0;
+        for (int i = 0; i < vecHelp.size(); i++){
+            for (int j = 0; j < vecHelp[i]; j++) {
+                vec[b] = i;
+                b = b + 1;
+            }
+        }
+}
+
+void RobustAlg::sort(std::vector<int> &vec, std::vector<int> vecHelp) {
+    std::vector<int> finalVec;
+    for (int i = 1; i < vecHelp.size(); i++){
+        vecHelp[i] = vecHelp[i - 1];
+    }
+    for (int j = vec.size() - 1; j >= 0; j--) {
+        vecHelp[vec[j]] = vecHelp[vec[j]] - 1;
+        finalVec[vecHelp[vec[j]]] = vec[j];
+    }
+    for (int i = 0; i < vec.size(); i++) {
+        vec[i] = finalVec[i];
+    }
+}
+
 
 
 
