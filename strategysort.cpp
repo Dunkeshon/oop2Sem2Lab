@@ -3,7 +3,7 @@
 void insertionSort::sort(std::vector<int> &vec){
     int key;
     int j;
-    for(int i = 1; i < vec.size(); i++){
+    for(unsigned int i = 1; i < vec.size(); i++){
         key = vec[i];
         j = i - 1;
         while((j>=0) && (vec[j]>key)){
@@ -112,7 +112,7 @@ void iterationMerge::sort(std::vector<int> &vec) {
 
 void SimplAlg::sort(std::vector<int> &vec, std::vector<int> vecHelp) {
     int b = 0;
-        for (int i = 0; i < vecHelp.size(); i++){
+        for (unsigned int i = 0; i < vecHelp.size(); i++){
             for (int j = 0; j < vecHelp[i]; j++) {
                 vec[b] = i;
                 b = b + 1;
@@ -122,14 +122,14 @@ void SimplAlg::sort(std::vector<int> &vec, std::vector<int> vecHelp) {
 
 void RobustAlg::sort(std::vector<int> &vec, std::vector<int> vecHelp) {
     std::vector<int> finalVec;
-    for (int i = 1; i < vecHelp.size(); i++){
+    for (unsigned int i = 1; i < vecHelp.size(); i++){
         vecHelp[i] = vecHelp[i - 1];
     }
-    for (int j = vec.size() - 1; j >= 0; j--) {
+    for (unsigned int j = vec.size() - 1; j >= 0; j--) {
         vecHelp[vec[j]] = vecHelp[vec[j]] - 1;
         finalVec[vecHelp[vec[j]]] = vec[j];
     }
-    for (int i = 0; i < vec.size(); i++) {
+    for (unsigned int i = 0; i < vec.size(); i++) {
         vec[i] = finalVec[i];
     }
 }
@@ -151,7 +151,7 @@ void msdRadix::sort(std::vector<int> &vec) {
     int num[vec.size()];
     std::copy( vec.begin(), vec.end(), num );
     msd_radix_sort(num, num + vec.size());
-    for (int i = 0; i < vec.size(); i++) {
+    for (unsigned int i = 0; i < vec.size(); i++) {
         vec[i] = num[i];
    }
 }

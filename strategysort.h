@@ -15,8 +15,8 @@ class sortAlgorithms
   public:
     virtual ~sortAlgorithms() {}
     virtual void sort(std::vector<int> &vec) = 0;
-    sortAlgorithms(sortAlgorithms &other) = delete;
-    sortAlgorithms(const sortAlgorithms &) = delete;
+//    sortAlgorithms(sortAlgorithms &other) = delete;
+//    sortAlgorithms(const sortAlgorithms &) = delete;
 };
 
 class insertionSort : public sortAlgorithms
@@ -91,7 +91,7 @@ class lsdRadix : public sortAlgorithms
 class headCount : public sortAlgorithms
 {
   public:
-    virtual void sort(std::vector<int> &vec, std::vector<int> vecHelp) = 0;
+    virtual void sort(std::vector<int> &vec, std::vector<int> vecHelp) = 0 ;
     virtual ~headCount() {}
 };
 
