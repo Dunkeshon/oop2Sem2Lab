@@ -1,33 +1,51 @@
 #ifndef STRATEGYSORT_H
 #define STRATEGYSORT_H
 
+
 #include <ctime>
 #include <random>
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <QObject>
 
 using std::string;
 using std::vector;
 
+class SortsEnums : public QObject{
+    Q_GADGET
+public:
+    enum SortChoice{
+        INSERTION_SORT,
+        QUICK_SORT,
+        MERGE_RECURSIVE_SORT,
+        MERGE_ITERATIVE_SORT
+    };
+    Q_ENUM(SortChoice)
+};
+
+
 class sortAlgorithms
 {
-  public:
+
+public:
+
     virtual ~sortAlgorithms() {}
     virtual void sort(std::vector<int> &vec) = 0;
-//    sortAlgorithms(sortAlgorithms &other) = delete;
-//    sortAlgorithms(const sortAlgorithms &) = delete;
+    //    sortAlgorithms(sortAlgorithms &other) = delete;
+    //    sortAlgorithms(const sortAlgorithms &) = delete; 
+
 };
 
 class insertionSort : public sortAlgorithms
 {
-  public:
+public:
     void sort(std::vector<int> &vec);
 };
 
 class quickSort : public sortAlgorithms
 {
-  public:
+public:
     void sort(std::vector<int> &vec) override;
     void quickSVec(std::vector<int> &vec, int l, int h);
     int partitionVec (std::vector<int> &vec, int l, int h);
@@ -37,7 +55,7 @@ class quickSort : public sortAlgorithms
 //Realization of pattern Template Method
 class mergeSort : public sortAlgorithms
 {
-  public:
+public:
     //make a constructor maybe
     virtual void sort(std::vector<int> &vec) = 0;
     //virtual void mergeSVec(std::vector<int> &vec, int left, int right) = 0;
@@ -46,13 +64,13 @@ class mergeSort : public sortAlgorithms
 
 class recMerge : public mergeSort
 {
-  public:
+public:
     void sort(std::vector<int> &vec);
     void mergeRecVec(std::vector<int> &vec, int left, int right);
 };
 class iterationMerge : public mergeSort
 {
-  public:
+public:
     int min(int x, int y) { return (x<y)? x :y; }
     void sort(std::vector<int> &vec);
 };
@@ -60,7 +78,7 @@ class iterationMerge : public mergeSort
 
 class msdRadix : public sortAlgorithms
 {
-  public:
+public:
     void sort(std::vector<int> &vec);
     void msd_radix_sort(int *first, int *last, int msb = 31);
 };
@@ -80,7 +98,7 @@ public:
 };
 class lsdRadix : public sortAlgorithms
 {
-  public:
+public:
     void sort(std::vector<int> &vec);
     void countSort(std::vector<int> &vec, int exp);
     int getMax(std::vector<int> &vec);
@@ -90,7 +108,7 @@ class lsdRadix : public sortAlgorithms
 //Component
 class headCount : public sortAlgorithms
 {
-  public:
+public:
     virtual void sort(std::vector<int> &vec, std::vector<int> vecHelp) = 0 ;
     virtual ~headCount() {}
 };
@@ -98,20 +116,20 @@ class headCount : public sortAlgorithms
 //Primitives
 class SimplAlg: public headCount
 {
-  public:
+public:
     virtual void sort(std::vector<int> &vec, std::vector<int> vecHelp);
 };
 
 class RobustAlg: public headCount
 {
-  public:
+public:
     virtual void sort(std::vector<int> &vec, std::vector<int> vecHelp);
 };
 
 // Composite
 class CompositeHeadCount: public headCount
 {
-  public:
+public:
     CompositeHeadCount( headCount* comp): headCountStrategy(comp) {}
     void sort(std::vector<int> &vec, std::vector<int> c = {0}) {
         int maxim = vec[0];
@@ -128,7 +146,7 @@ class CompositeHeadCount: public headCount
         headCountStrategy->sort(vec, c);
     }
     ~CompositeHeadCount() { delete headCountStrategy; }
-  private:
+private:
     headCount* headCountStrategy;
 };
 //end of composite Pattern
@@ -137,25 +155,25 @@ class CompositeHeadCount: public headCount
 class strategySort
 {
 private:
-  sortAlgorithms* m_strategy;
+    sortAlgorithms* m_strategy;
 
-  // generates random integer from given range
-  // @param from begin of randomizing range
-  // @param to end of randomizing range
-  int generate_random_int(int from,int to){
-      std::random_device rd;   // non-deterministic generator
-      std::mt19937 gen(rd());  // to seed mersenne twister.
-      std::uniform_int_distribution<> dist(from,to);
-      return dist(gen); // returns generated item
-  }
+    // generates random integer from given range
+    // @param from begin of randomizing range
+    // @param to end of randomizing range
+    int generate_random_int(int from,int to){
+        std::random_device rd;   // non-deterministic generator
+        std::mt19937 gen(rd());  // to seed mersenne twister.
+        std::uniform_int_distribution<> dist(from,to);
+        return dist(gen); // returns generated item
+    }
 
-  public:
+public:
     strategySort( sortAlgorithms* comp): m_strategy(comp) {}
-   ~strategySort() { delete m_strategy; }
+    ~strategySort() { delete m_strategy; }
 
     std::vector<int> vectorToSort;
     void sort() {
-      m_strategy->sort(vectorToSort);
+        m_strategy->sort(vectorToSort);
     }
 
     // @param howManyNumbers
