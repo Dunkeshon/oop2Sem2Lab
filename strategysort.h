@@ -57,6 +57,8 @@ class iterationMerge : public mergeSort
 };
 //end of pattern Template Method
 
+//Component pattern
+//Component
 class headCount : public sortAlgorithms
 {
   public:
@@ -64,6 +66,7 @@ class headCount : public sortAlgorithms
     virtual ~headCount() {}
 };
 
+//Primitives
 class SimplAlg: public headCount
 {
   public:
@@ -80,14 +83,13 @@ class RobustAlg: public headCount
 class CompositeHeadCount: public headCount
 {
   public:
-    //make a constructor maybe
     CompositeHeadCount( headCount* comp): headCountStrategy(comp) {}
-    void sort(std::vector<int> &vec) {
+    void sort(std::vector<int> &vec, std::vector<int> c = {0}) {
         int maxim = vec[0];
         for (int i = 1; i < vec.size(); i++) {
             if (maxim < vec[i]) maxim = vec[i];
         }
-        std::vector<int> c(maxim);
+        //std::vector<int> c(maxim);
         for (int i = 0; i <= maxim; i++) {
             c[i] = 0;
         }
@@ -100,6 +102,7 @@ class CompositeHeadCount: public headCount
   private:
     headCount* headCountStrategy;
 };
+//end of composite Pattern
 
 // Класс для использования
 class strategySort
