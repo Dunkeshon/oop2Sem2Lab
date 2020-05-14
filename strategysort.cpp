@@ -156,6 +156,37 @@ void msdRadix::sort(std::vector<int> &vec) {
    }
 }
 
+void lsdRadix::sort(std::vector<int> &vec) {
+    int m = getMax(vec);
+    for (int exp = 1; m/exp > 0; exp *= 10)
+        countSort(vec, exp);
+}
+void lsdRadix::countSort(std::vector<int> &vec, int exp) {
+    int n = vec.size();
+    std::vector<int> output;
+    int i, count[10] = {0};
+
+    for (i = 0; i < n; i++)
+        count[ (vec[i]/exp)%10 ]++;
+    for (i = 1; i < 10; i++)
+        count[i] += count[i - 1];
+
+    // Build the output array
+    for (i = n - 1; i >= 0; i--) {
+        output[count[ (vec[i]/exp)%10 ] - 1] = vec[i];
+        count[ (vec[i]/exp)%10 ]--;
+    }
+    for (i = 0; i < n; i++)
+        vec[i] = output[i];
+}
+int lsdRadix::getMax(std::vector<int> &vec) {
+    int n = vec.size();
+    int mx = vec[0];
+    for (int i = 1; i < n; i++)
+        if (vec[i] > mx)
+            mx = vec[i];
+    return mx;
+}
 
 
 
