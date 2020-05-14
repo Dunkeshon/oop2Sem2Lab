@@ -77,6 +77,13 @@ public:
         else return !(value & (1 << bit));
     }
 };
+class lsdRadix : public sortAlgorithms
+{
+  public:
+    void sort(std::vector<int> &vec);
+    void countSort(std::vector<int> &vec, int exp);
+    int getMax(std::vector<int> &vec);
+};
 
 //Component pattern
 //Component
