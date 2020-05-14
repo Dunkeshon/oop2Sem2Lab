@@ -57,6 +57,36 @@ class iterationMerge : public mergeSort
 };
 //end of pattern Template Method
 
+class msdRadix : public sortAlgorithms
+{
+  public:
+    void sort(std::vector<int> &vec);
+    void msd_radix_sort(int *first, int *last, int msb = 31);
+};
+class radix_test : public msdRadix
+{
+    const int bit; // bit position [0..31] to examine
+public:
+    radix_test(int offset) : bit(offset) {
+    }
+
+    bool operator()(int value) const // function call operator
+    {
+        //std::cout << value << " " << bit << std::endl;
+        if (bit == 31) // sign bit
+            return value < 0; // negative int to left partition
+        else {
+            //if (!(value & (1 << bit)) == true) std::cout << "bitch";
+            //else std::cout << "no bitch";
+            //std::cout << " -" << (1<<bit) << "- ";
+            return !(value & (1 << bit)); // 0 bit to left partition
+        }
+    }
+};
+
+
+
+
 //Component pattern
 //Component
 class headCount : public sortAlgorithms
