@@ -5,7 +5,6 @@
 #include <random>
 #include <string>
 #include <vector>
-#include <cstring>
 #include <algorithm>
 
 using std::string;
@@ -15,7 +14,9 @@ class sortAlgorithms
 {
   public:
     virtual ~sortAlgorithms() {}
-    virtual void sort(std::vector<int> &vec) {}
+    virtual void sort(std::vector<int> &vec) = 0;
+    sortAlgorithms(sortAlgorithms &other) = delete;
+    sortAlgorithms(const sortAlgorithms &) = delete;
 };
 
 class insertionSort : public sortAlgorithms
@@ -27,7 +28,7 @@ class insertionSort : public sortAlgorithms
 class quickSort : public sortAlgorithms
 {
   public:
-    void sort(std::vector<int> &vec);
+    void sort(std::vector<int> &vec) override;
     void quickSVec(std::vector<int> &vec, int l, int h);
     int partitionVec (std::vector<int> &vec, int l, int h);
     void swapVec (int * a, int * b);
@@ -114,14 +115,14 @@ class CompositeHeadCount: public headCount
     CompositeHeadCount( headCount* comp): headCountStrategy(comp) {}
     void sort(std::vector<int> &vec, std::vector<int> c = {0}) {
         int maxim = vec[0];
-        for (int i = 1; i < vec.size(); i++) {
+        for (unsigned int i = 1; i < vec.size(); i++) {
             if (maxim < vec[i]) maxim = vec[i];
         }
         //std::vector<int> c(maxim);
         for (int i = 0; i <= maxim; i++) {
             c[i] = 0;
         }
-        for (int i = 0; i < vec.size(); i++) {
+        for (unsigned int i = 0; i < vec.size(); i++) {
             c[vec[i]] = c[vec[i]] + 1;
         }
         headCountStrategy->sort(vec, c);
@@ -135,14 +136,34 @@ class CompositeHeadCount: public headCount
 // Класс для использования
 class strategySort
 {
+private:
+  sortAlgorithms* m_strategy;
+
+  // generates random integer from given range
+  // @param from begin of randomizing range
+  // @param to end of randomizing range
+  int generate_random_int(int from,int to){
+      std::random_device rd;   // non-deterministic generator
+      std::mt19937 gen(rd());  // to seed mersenne twister.
+      std::uniform_int_distribution<> dist(from,to);
+      return dist(gen); // returns generated item
+  }
+
   public:
-    strategySort( sortAlgorithms* comp): strategy(comp) {}
-   ~strategySort() { delete strategy; }
-    void sort(std::vector<int> &vec) {
-      strategy->sort(vec);
+    strategySort( sortAlgorithms* comp): m_strategy(comp) {}
+   ~strategySort() { delete m_strategy; }
+
+    std::vector<int> vectorToSort;
+    void sort() {
+      m_strategy->sort(vectorToSort);
     }
-  private:
-    sortAlgorithms* strategy;
+
+    // @param howManyNumbers
+    void randomizeVector(int howManyNumbers , int from , int to ){
+        for( int i = 0; i < howManyNumbers;i++){
+            vectorToSort.push_back(generate_random_int(from,to));
+        }
+    }
 };
 
 
