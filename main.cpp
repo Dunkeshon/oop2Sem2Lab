@@ -5,8 +5,6 @@
 
 int main(int argc, char *argv[])
 {
-       int a = SortsEnums::SortChoice::QUICK_SORT ;
-       std::cout<<a<<std::endl;
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
     QGuiApplication app(argc, argv);
