@@ -65,27 +65,18 @@ class msdRadix : public sortAlgorithms
 };
 class radix_test : public msdRadix
 {
-    const int bit; // bit position [0..31] to examine
+    const int bit;
 public:
     radix_test(int offset) : bit(offset) {
     }
 
-    bool operator()(int value) const // function call operator
+    bool operator()(int value) const
     {
-        //std::cout << value << " " << bit << std::endl;
-        if (bit == 31) // sign bit
-            return value < 0; // negative int to left partition
-        else {
-            //if (!(value & (1 << bit)) == true) std::cout << "bitch";
-            //else std::cout << "no bitch";
-            //std::cout << " -" << (1<<bit) << "- ";
-            return !(value & (1 << bit)); // 0 bit to left partition
-        }
+        if (bit == 31)
+            return value < 0;
+        else return !(value & (1 << bit));
     }
 };
-
-
-
 
 //Component pattern
 //Component

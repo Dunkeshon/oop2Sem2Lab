@@ -134,6 +134,27 @@ void RobustAlg::sort(std::vector<int> &vec, std::vector<int> vecHelp) {
     }
 }
 
+void msdRadix::msd_radix_sort(int *first, int *last, int msb)
+{
+    if (first != last && msb >= 0)
+    {
+        //std::cout << " lal" << std::endl;
+        int *mid = std::partition(first, last, radix_test(msb));
+        //std::cout << " lol" << std::endl;
+        msb--; // decrement most-significant-bit
+        msd_radix_sort(first, mid, msb); // sort left partition
+
+        msd_radix_sort(mid, last, msb); // sort right partition
+    }
+}
+void msdRadix::sort(std::vector<int> &vec) {
+    int num[vec.size()];
+    std::copy( vec.begin(), vec.end(), num );
+    msd_radix_sort(num, num + vec.size());
+    for (int i = 0; i < vec.size(); i++) {
+        vec[i] = num[i];
+   }
+}
 
 
 
