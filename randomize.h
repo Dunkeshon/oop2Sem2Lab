@@ -2,6 +2,7 @@
 #define RANDOMIZE_H
 
 #include <random>
+#include <algorithm>
 
 namespace Randomizing {
 
