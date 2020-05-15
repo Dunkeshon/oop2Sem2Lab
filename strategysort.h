@@ -22,25 +22,37 @@ public:
     Q_ENUM(SortChoice)
 };
 
-
+/*!
+ * \brief Pattern strategy
+ * \details Main pattern of the project that includes all sorting
+ */
 class sortAlgorithms
 {
 
 public:
 
     virtual ~sortAlgorithms() {}
+    /*!
+     * \brief sort is virtual function (all sortings have different realization of this function)
+     * \param vec - vector of variables that is needed to sort
+     */
     virtual void sort(std::vector<int> &vec) = 0;
-
-
 
 };
 
+/*!
+ * \brief The insertionSort class - realisation of insertion sort algorithm
+ * inheritor of class sortAlgorithm
+ */
 class insertionSort : public sortAlgorithms
 {
 public:
-    void sort(std::vector<int> &vec);
+    void sort(std::vector<int> &vec) override;
 };
 
+/*!
+ * \brief The quickSort class
+ */
 class quickSort : public sortAlgorithms
 {
 public:
