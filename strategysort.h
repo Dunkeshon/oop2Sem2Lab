@@ -2,8 +2,6 @@
 #define STRATEGYSORT_H
 
 
-#include <ctime>
-#include <random>
 #include <string>
 #include <vector>
 #include <algorithm>
@@ -32,8 +30,8 @@ public:
 
     virtual ~sortAlgorithms() {}
     virtual void sort(std::vector<int> &vec) = 0;
-    //    sortAlgorithms(sortAlgorithms &other) = delete;
-    //    sortAlgorithms(const sortAlgorithms &) = delete; 
+
+
 
 };
 
@@ -151,38 +149,6 @@ private:
 };
 //end of composite Pattern
 
-// Класс для использования
-class strategySort
-{
-private:
-    sortAlgorithms* m_strategy;
-
-    // generates random integer from given range
-    // @param from begin of randomizing range
-    // @param to end of randomizing range
-    int generate_random_int(int from,int to){
-        std::random_device rd;   // non-deterministic generator
-        std::mt19937 gen(rd());  // to seed mersenne twister.
-        std::uniform_int_distribution<> dist(from,to);
-        return dist(gen); // returns generated item
-    }
-
-public:
-    strategySort( sortAlgorithms* comp): m_strategy(comp) {}
-    ~strategySort() { delete m_strategy; }
-
-    std::vector<int> vectorToSort;
-    void sort() {
-        m_strategy->sort(vectorToSort);
-    }
-
-    // @param howManyNumbers
-    void randomizeVector(int howManyNumbers , int from , int to ){
-        for( int i = 0; i < howManyNumbers;i++){
-            vectorToSort.push_back(generate_random_int(from,to));
-        }
-    }
-};
 
 
 /*
