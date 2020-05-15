@@ -15,7 +15,7 @@ private:
     sortAlgorithms* m_strategy;
 public:
     StrategySortNavigation(QObject *parent = nullptr);
-
+    ~StrategySortNavigation(){delete m_strategy;}
     vector<int> vectorToSort;
 
     /*
