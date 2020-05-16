@@ -12,7 +12,7 @@ class StrategySortNavigation : public QObject
 {
     Q_OBJECT
 private:
-    sortAlgorithms* m_strategy;
+    SortAlgorithms* m_strategy;
 public:
     StrategySortNavigation(QObject *parent = nullptr);
     ~StrategySortNavigation(){delete m_strategy;}

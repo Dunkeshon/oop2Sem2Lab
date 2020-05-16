@@ -45,13 +45,17 @@ void StrategySortNavigation::selectSort(SortsEnums::SortChoice choosenSort){
     // factory switch case based on enum
     // m_strategy = classCreatedByFactory
     switch (choosenSort) {
-    case SortsEnums::SortChoice ::INSERTION_SORT : std::cout<< "you choosed INSERTION_SORT"<<std::endl;
+    case SortsEnums::SortChoice ::INSERTION_SORT : m_strategy = SortFactory::insertionSort();
         break;
-    case SortsEnums::SortChoice ::QUICK_SORT : std::cout<< "you choosed QUICK_SORT"<<std::endl;
+    case SortsEnums::SortChoice ::QUICK_SORT : m_strategy = SortFactory::quickSort();
         break;
-    case SortsEnums::SortChoice ::MERGE_RECURSIVE_SORT : std::cout<< "you choosed MERGE_RECURSIVE_SORT"<<std::endl;
+    case SortsEnums::SortChoice ::MERGE_RECURSIVE_SORT : m_strategy = SortFactory::recursiveMerge();
         break;
-    case SortsEnums::SortChoice ::MERGE_ITERATIVE_SORT : std::cout<< "you choosed MERGE_ITERATIVE_SORT"<<std::endl;
+    case SortsEnums::SortChoice ::MERGE_ITERATIVE_SORT : m_strategy = SortFactory::iterationMerge();
+        break;
+    case SortsEnums::SortChoice ::MSD_RADIX : m_strategy = SortFactory::msdRadix();
+        break;
+    case SortsEnums::SortChoice ::LSD_RADIX : m_strategy = SortFactory::lsdRadix();
         break;
         // TO DO
     default:

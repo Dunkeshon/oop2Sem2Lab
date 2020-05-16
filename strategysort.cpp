@@ -1,6 +1,6 @@
 #include "strategysort.h"
 
-void insertionSort::sort(std::vector<int> &vec){
+void InsertionSort::sort(std::vector<int> &vec){
     int key;
     int j;
     for(unsigned int i = 1; i < vec.size(); i++){
@@ -14,14 +14,14 @@ void insertionSort::sort(std::vector<int> &vec){
     }
 }
 
-void quickSort::swapVec (int * a, int * b) {
+void QuickSort::swapVec (int * a, int * b) {
     int tmp;
     tmp = * a;
     * a = * b;
     * b= tmp;
 }
 
-int quickSort::partitionVec (std::vector<int> &vec, int l, int h) {
+int QuickSort::partitionVec (std::vector<int> &vec, int l, int h) {
     int line = vec[h];
     int i = (l - 1);
 
@@ -35,7 +35,7 @@ int quickSort::partitionVec (std::vector<int> &vec, int l, int h) {
     return (i + 1);
 }
 
-void quickSort::quickSVec(std::vector<int> &vec, int l, int h) {
+void QuickSort::quickSVec(std::vector<int> &vec, int l, int h) {
     if (l < h) {
         int line = partitionVec(vec, l, h);
         quickSVec(vec, l, line - 1);
@@ -43,11 +43,11 @@ void quickSort::quickSVec(std::vector<int> &vec, int l, int h) {
     }
 }
 
-void quickSort::sort(std::vector<int> &vec) {
+void QuickSort::sort(std::vector<int> &vec) {
     quickSVec(vec, 0, vec.size()-1);
 }
 
-void mergeSort::mergeVec(std::vector<int> &vec, int l, int c, int r) {
+void MergeSort::mergeVec(std::vector<int> &vec, int l, int c, int r) {
     int i, j, k;
     int n1 = c - l + 1;
     int n2 =  r - c;
@@ -84,7 +84,7 @@ void mergeSort::mergeVec(std::vector<int> &vec, int l, int c, int r) {
     }
 }
 
-void recMerge::mergeRecVec(std::vector<int> &vec, int left, int right) {
+void RecMerge::mergeRecVec(std::vector<int> &vec, int left, int right) {
     if (left < right) {
         int center = left+(right-left)/2;
         mergeRecVec(vec, left, center);
@@ -93,11 +93,11 @@ void recMerge::mergeRecVec(std::vector<int> &vec, int left, int right) {
     }
 }
 
-void recMerge::sort(std::vector<int> &vec) {
+void RecMerge::sort(std::vector<int> &vec) {
     mergeRecVec(vec, 0, vec.size()-1);
 }
 
-void iterationMerge::sort(std::vector<int> &vec) {
+void IterationMerge::sort(std::vector<int> &vec) {
     int n = vec.size();
     int currSize;
     int lStart;
@@ -110,7 +110,7 @@ void iterationMerge::sort(std::vector<int> &vec) {
        }
 }
 
-void SimplAlg::sort(std::vector<int> &vec, std::vector<int> vecHelp) {
+void SimplAlgHeadCount::sort(std::vector<int> &vec, std::vector<int> vecHelp) {
     int b = 0;
         for (unsigned int i = 0; i < vecHelp.size(); i++){
             for (int j = 0; j < vecHelp[i]; j++) {
@@ -120,7 +120,7 @@ void SimplAlg::sort(std::vector<int> &vec, std::vector<int> vecHelp) {
         }
 }
 
-void RobustAlg::sort(std::vector<int> &vec, std::vector<int> vecHelp) {
+void RobustAlgHeadCount::sort(std::vector<int> &vec, std::vector<int> vecHelp) {
     std::vector<int> finalVec;
     for (unsigned int i = 1; i < vecHelp.size(); i++){
         vecHelp[i] = vecHelp[i - 1];
@@ -134,12 +134,12 @@ void RobustAlg::sort(std::vector<int> &vec, std::vector<int> vecHelp) {
     }
 }
 
-void msdRadix::msd_radix_sort(int *first, int *last, int msb)
+void MsdRadix::msd_radix_sort(int *first, int *last, int msb)
 {
     if (first != last && msb >= 0)
     {
         //std::cout << " lal" << std::endl;
-        int *mid = std::partition(first, last, radix_test(msb));
+        int *mid = std::partition(first, last, Radix_test(msb));
         //std::cout << " lol" << std::endl;
         msb--; // decrement most-significant-bit
         msd_radix_sort(first, mid, msb); // sort left partition
@@ -147,7 +147,7 @@ void msdRadix::msd_radix_sort(int *first, int *last, int msb)
         msd_radix_sort(mid, last, msb); // sort right partition
     }
 }
-void msdRadix::sort(std::vector<int> &vec) {
+void MsdRadix::sort(std::vector<int> &vec) {
     int num[vec.size()];
     std::copy( vec.begin(), vec.end(), num );
     msd_radix_sort(num, num + vec.size());
@@ -156,12 +156,12 @@ void msdRadix::sort(std::vector<int> &vec) {
    }
 }
 
-void lsdRadix::sort(std::vector<int> &vec) {
+void LsdRadix::sort(std::vector<int> &vec) {
     int m = getMax(vec);
     for (int exp = 1; m/exp > 0; exp *= 10)
         countSort(vec, exp);
 }
-void lsdRadix::countSort(std::vector<int> &vec, int exp) {
+void LsdRadix::countSort(std::vector<int> &vec, int exp) {
     int n = vec.size();
     std::vector<int> output;
     int i, count[10] = {0};
@@ -179,7 +179,7 @@ void lsdRadix::countSort(std::vector<int> &vec, int exp) {
     for (i = 0; i < n; i++)
         vec[i] = output[i];
 }
-int lsdRadix::getMax(std::vector<int> &vec) {
+int LsdRadix::getMax(std::vector<int> &vec) {
     int n = vec.size();
     int mx = vec[0];
     for (int i = 1; i < n; i++)
