@@ -1,5 +1,5 @@
 #include "strategysort.h"
-
+#include <algorithm>
 
 
 /*!
@@ -57,7 +57,6 @@ int QuickSort::partitionVec (std::vector<int> &vec, int l, int h) {
 
 /*!
  * \brief QuickSort::quickSVec
- * \param vec
  * \param l - index of the firt element of the current vec
  * \param h - index of the last element of the current vec
  */
@@ -71,7 +70,6 @@ void QuickSort::quickSVec(std::vector<int> &vec, int l, int h) {
 
 /*!
  * \brief QuickSort::sort main function that will call quickSVec
- * \param vec
  */
 void QuickSort::sort(std::vector<int> &vec) {
     quickSVec(vec, 0, vec.size()-1);
@@ -137,7 +135,6 @@ void MergeSort::mergeVec(std::vector<int> &vec, int l, int c, int r) {
 
 /*!
  * \brief RecMerge::mergeRecVec - recursive merge vector
- * \param vec
  * \param left is for left index of the sub-array of vec to be sorted
  * \param right is right index of the sub-array of vec to be sorted
  */
@@ -155,7 +152,6 @@ void RecMerge::mergeRecVec(std::vector<int> &vec, int left, int right) {
 
 /*!
  * \brief RecMerge::sort main function that will call mergeRecVec
- * \param vec
  */
 void RecMerge::sort(std::vector<int> &vec) {
     mergeRecVec(vec, 0, vec.size()-1);
@@ -165,7 +161,6 @@ void RecMerge::sort(std::vector<int> &vec) {
  * \brief IterationMerge::sort Merge subarrays in bottom up manner.
  * \details  First merge subarrays of size 1 to create sorted subarrays of size 2,
  *  then merge subarrays of size 2 to create sorted subarrays of size 4, and so on.
- * \param vec
  */
 void IterationMerge::sort(std::vector<int> &vec) {
     int n = vec.size();
@@ -190,7 +185,6 @@ void IterationMerge::sort(std::vector<int> &vec) {
 
 /*!
  * \brief CompositeHeadCount::sort main function that will cal sorts of CompositeHeadCount class
- * \param vec
  */
 void CompositeHeadCount::sort(std::vector<int> &vec) {
     sorts(vec);
@@ -220,8 +214,8 @@ void CompositeHeadCount::sorts(std::vector<int> &vec, std::vector<int> c) {
 /*!
  * \brief SimplAlgHeadCount::sorts simplest algorithm of headCount
  * \details it just go in vecHelp and gives indexes of it to  our vec (go to wiki for details)
- * \param vec
- * \param vecHelp
+ * \param vec - vector that is needed to be sort
+ * \param vecHelp - supporting vector
  */
 void SimplAlgHeadCount::sorts(std::vector<int> &vec, std::vector<int> vecHelp) {
     int b = 0;
@@ -254,23 +248,39 @@ void RobustAlgHeadCount::sorts(std::vector<int> &vec, std::vector<int> vecHelp) 
 
 //******************************************************************************************
 
+/*!
+ * \brief MsdRadix::msd_radix_sort - msd radix
+ * \param first - first element of sub-array
+ * \param last - last element of sub-array
+ * \param msb - number of current bit
+ */
 void MsdRadix::msd_radix_sort(int *first, int *last, int msb)
 {
     if (first != last && msb >= 0)
     {
-        //std::cout << " lal" << std::endl;
-        int *mid = std::partition(first, last, Radix_test(msb));
-        //std::cout << " lol" << std::endl;
-        msb--; // decrement most-significant-bit
-        msd_radix_sort(first, mid, msb); // sort left partition
 
-        msd_radix_sort(mid, last, msb); // sort right partition
+        int *mid = std::partition(first, last, Radix_test(msb));
+
+        //! decrement most-significant-bit
+        msb--;
+
+        //!sort left partition
+        msd_radix_sort(first, mid, msb);
+
+        //!sort right partition
+        msd_radix_sort(mid, last, msb);
     }
 }
+
+/*!
+ * \brief MsdRadix::sort - main function of msd radix sort
+ */
 void MsdRadix::sort(std::vector<int> &vec) {
     int num[vec.size()];
     std::copy( vec.begin(), vec.end(), num );
+
     msd_radix_sort(num, num + vec.size());
+
     for (unsigned int i = 0; i < vec.size(); i++) {
         vec[i] = num[i];
    }
@@ -278,29 +288,47 @@ void MsdRadix::sort(std::vector<int> &vec) {
 
 //******************************************************************************************
 
+/*!
+ * \brief LsdRadix::sort - main function of lsd radix sort
+ * \param vec - vector that is needed to be sort
+ */
 void LsdRadix::sort(std::vector<int> &vec) {
     int m = getMax(vec);
     for (int exp = 1; m/exp > 0; exp *= 10)
         countSort(vec, exp);
 }
+
+/*!
+ * \brief LsdRadix::countSort - a function to do counting sort of vec
+ *  according to the digit represented by exp
+ * \param exp - grade of number (tenth/hundreds)
+ */
 void LsdRadix::countSort(std::vector<int> &vec, int exp) {
     int n = vec.size();
     std::vector<int> output;
     int i, count[10] = {0};
 
+    //!Store count of occurrences in count[]
     for (i = 0; i < n; i++)
         count[ (vec[i]/exp)%10 ]++;
+
+    //!Change count[i] so that count[i] now contains actual position of this digit in output[]
     for (i = 1; i < 10; i++)
         count[i] += count[i - 1];
 
-    // Build the output array
+    //! Build the output array
     for (i = n - 1; i >= 0; i--) {
-        output[count[ (vec[i]/exp)%10 ] - 1] = vec[i];
+        output[count[ (vec[i]/exp)%10 ] - 1] = vec[i];  //!
         count[ (vec[i]/exp)%10 ]--;
     }
     for (i = 0; i < n; i++)
         vec[i] = output[i];
 }
+
+/*!
+ * \brief LsdRadix::getMax - function that return maximum of vector
+ * \return maximum of the vector
+ */
 int LsdRadix::getMax(std::vector<int> &vec) {
     int n = vec.size();
     int mx = vec[0];
