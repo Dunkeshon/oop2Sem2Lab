@@ -43,6 +43,14 @@ public:
 
 //****************************************************************************************
 
+class SelectionSort : public SortAlgorithms
+{
+public:
+    void sort(std::vector<int> &vec) override;
+};
+
+//****************************************************************************************
+
 /*!
  * \brief The insertionSort class - represent the insertion sort algorithm
  * inheritor of class sortAlgorithm
