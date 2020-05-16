@@ -33,6 +33,7 @@ void QuickSort::swapVec (int * a, int * b) {
     * a = * b;
     * b= tmp;
 }
+
 /*!
  * \brief QuickSort::partitionVec
  * \param vec - vector that is needed to be sort
@@ -53,6 +54,7 @@ int QuickSort::partitionVec (std::vector<int> &vec, int l, int h) {
     swapVec (&vec[i + 1], &vec[h]);        //!
     return (i + 1);
 }
+
 /*!
  * \brief QuickSort::quickSVec
  * \param vec
@@ -66,6 +68,7 @@ void QuickSort::quickSVec(std::vector<int> &vec, int l, int h) {
         quickSVec(vec, line + 1, h);
     }
 }
+
 /*!
  * \brief QuickSort::sort main function that will call quickSVec
  * \param vec
@@ -150,6 +153,10 @@ void RecMerge::mergeRecVec(std::vector<int> &vec, int left, int right) {
     }
 }
 
+/*!
+ * \brief RecMerge::sort main function that will call mergeRecVec
+ * \param vec
+ */
 void RecMerge::sort(std::vector<int> &vec) {
     mergeRecVec(vec, 0, vec.size()-1);
 }
@@ -181,10 +188,20 @@ void IterationMerge::sort(std::vector<int> &vec) {
 
 //******************************************************************************************
 
+/*!
+ * \brief CompositeHeadCount::sort main function that will cal sorts of CompositeHeadCount class
+ * \param vec
+ */
 void CompositeHeadCount::sort(std::vector<int> &vec) {
     sorts(vec);
 }
 
+/*!
+ * \brief CompositeHeadCount::sorts Composite sort that will call SimplAlgHeadCount::sorts or RobustAlgHeadCount::sorts
+ * (it depends on object that will headCountStrategy consits)
+ * \param vec - vector that is needed to be sort
+ * \param c - supporting vector
+ */
 void CompositeHeadCount::sorts(std::vector<int> &vec, std::vector<int> c) {
     int maxim = vec[0];
     for (unsigned int i = 1; i < vec.size(); i++) {
@@ -200,16 +217,27 @@ void CompositeHeadCount::sorts(std::vector<int> &vec, std::vector<int> c) {
     headCountStrategy->sorts(vec, c);
 }
 
+/*!
+ * \brief SimplAlgHeadCount::sorts simplest algorithm of headCount
+ * \details it just go in vecHelp and gives indexes of it to  our vec (go to wiki for details)
+ * \param vec
+ * \param vecHelp
+ */
 void SimplAlgHeadCount::sorts(std::vector<int> &vec, std::vector<int> vecHelp) {
     int b = 0;
         for (unsigned int i = 0; i < vecHelp.size(); i++){
             for (int j = 0; j < vecHelp[i]; j++) {
-                vec[b] = i;
+
+                vec[b] = i;         //!
                 b = b + 1;
             }
         }
 }
 
+/*!
+ * \brief RobustAlgHeadCount::sorts "strong" algorithm
+ * \details make sorted "finalvec" from elements of vector "vec"
+ */
 void RobustAlgHeadCount::sorts(std::vector<int> &vec, std::vector<int> vecHelp) {
     std::vector<int> finalVec;
     for (unsigned int i = 1; i < vecHelp.size(); i++){
