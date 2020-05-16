@@ -110,7 +110,26 @@ void IterationMerge::sort(std::vector<int> &vec) {
        }
 }
 
-void SimplAlgHeadCount::sort(std::vector<int> &vec, std::vector<int> vecHelp) {
+void CompositeHeadCount::sort(std::vector<int> &vec) {
+    sorts(vec);
+}
+
+void CompositeHeadCount::sorts(std::vector<int> &vec, std::vector<int> c) {
+    int maxim = vec[0];
+    for (unsigned int i = 1; i < vec.size(); i++) {
+        if (maxim < vec[i]) maxim = vec[i];
+    }
+    //std::vector<int> c(maxim);
+    for (int i = 0; i <= maxim; i++) {
+        c[i] = 0;
+    }
+    for (unsigned int i = 0; i < vec.size(); i++) {
+        c[vec[i]] = c[vec[i]] + 1;
+    }
+    headCountStrategy->sorts(vec, c);
+}
+
+void SimplAlgHeadCount::sorts(std::vector<int> &vec, std::vector<int> vecHelp) {
     int b = 0;
         for (unsigned int i = 0; i < vecHelp.size(); i++){
             for (int j = 0; j < vecHelp[i]; j++) {
@@ -120,7 +139,7 @@ void SimplAlgHeadCount::sort(std::vector<int> &vec, std::vector<int> vecHelp) {
         }
 }
 
-void RobustAlgHeadCount::sort(std::vector<int> &vec, std::vector<int> vecHelp) {
+void RobustAlgHeadCount::sorts(std::vector<int> &vec, std::vector<int> vecHelp) {
     std::vector<int> finalVec;
     for (unsigned int i = 1; i < vecHelp.size(); i++){
         vecHelp[i] = vecHelp[i - 1];
