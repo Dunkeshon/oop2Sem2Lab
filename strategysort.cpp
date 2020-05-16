@@ -1,20 +1,37 @@
 #include "strategysort.h"
 #include <algorithm>
 
+/*!
+ * \brief swapVec change values of two elements
+ * \details it is used several times so it is here
+ */
+void swapVec (int * a, int * b) {
+    int tmp;
+    tmp = * a;
+    * a = * b;
+    * b= tmp;
+}
 
+//******************************************************************************************
+
+/*!
+ * \brief SelectionSort::sort - algorith of selection sort
+ * \param vec - vector that is needed to be sort
+ */
 void SelectionSort::sort(std::vector<int> &vec)  {
     unsigned int i, j, min_idx;
 
-    // One by one move boundary of unsorted subarray
+    //! One by one move boundary of unsorted subarray
     for (i = 0; i < vec.size() - 1; i++)  {
-        // Find the minimum element in unsorted array
+
+        //! Find the minimum element in unsorted array
         min_idx = i;
         for (j = i+1; j < vec.size(); j++)
         if (vec[j] < vec[min_idx])
             min_idx = j;
 
-        // Swap the found minimum element with the first element
-        QuickSort::swapVec(&vec[min_idx], &vec[i]);
+        //! Swap the found minimum element with the first element
+        swapVec(&vec[min_idx], &vec[i]);            //!
     }
 }
 
@@ -41,16 +58,6 @@ void InsertionSort::sort(std::vector<int> &vec){
 }
 
 //******************************************************************************************
-
-/*!
- * \brief QuickSort::swapVec change values of two elements
- */
-void QuickSort::swapVec (int * a, int * b) {
-    int tmp;
-    tmp = * a;
-    * a = * b;
-    * b= tmp;
-}
 
 /*!
  * \brief QuickSort::partitionVec

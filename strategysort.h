@@ -43,6 +43,10 @@ public:
 
 //****************************************************************************************
 
+/*!
+ * \brief The SelectionSort class - represent the selection sort algorithm
+ * inheritor of class sortAlgorithm
+ */
 class SelectionSort : public SortAlgorithms
 {
 public:
@@ -73,7 +77,6 @@ public:
 
     void quickSVec(std::vector<int> &vec, int l, int h);
     int partitionVec (std::vector<int> &vec, int l, int h);
-    void swapVec (int * a, int * b);
 };
 
 //***************************************************************************************
