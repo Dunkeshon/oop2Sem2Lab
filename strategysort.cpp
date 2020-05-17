@@ -345,7 +345,7 @@ void LsdRadix::sorts(std::vector<int> &vec) {
  */
 void LsdRadix::countSort(std::vector<int> &vec, int exp) {
     int n = vec.size();
-    std::vector<int> output;
+    std::vector<int> output = {0};
     int i, count[10] = {0};
 
     //!Store count of occurrences in count[]
