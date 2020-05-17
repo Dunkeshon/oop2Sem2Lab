@@ -274,6 +274,21 @@ void RobustAlgHeadCount::sorts(std::vector<int> &vec, std::vector<int> vecHelp) 
 //******************************************************************************************
 
 /*!
+ * \brief Radix::sort main function of class Radix
+ */
+void Radix::sort(std::vector<int> &vec) {
+   sorts(vec);
+}
+
+/*!
+ * \brief Radix::sorts variable next(object of class of needed algorithm) call class MsdRadix or LsdRadix
+ *  that represents needed algorithm
+ */
+void Radix::sorts(std::vector<int> &vec) {
+    next->sorts(vec);
+}
+
+/*!
  * \brief MsdRadix::msd_radix_sort - msd radix
  * \param first - first element of sub-array
  * \param last - last element of sub-array
@@ -300,7 +315,7 @@ void MsdRadix::msd_radix_sort(int *first, int *last, int msb)
 /*!
  * \brief MsdRadix::sort - main function of msd radix sort
  */
-void MsdRadix::sort(std::vector<int> &vec) {
+void MsdRadix::sorts(std::vector<int> &vec) {
     int num[vec.size()];
     std::copy( vec.begin(), vec.end(), num );
 
@@ -317,7 +332,7 @@ void MsdRadix::sort(std::vector<int> &vec) {
  * \brief LsdRadix::sort - main function of lsd radix sort
  * \param vec - vector that is needed to be sort
  */
-void LsdRadix::sort(std::vector<int> &vec) {
+void LsdRadix::sorts(std::vector<int> &vec) {
     int m = getMax(vec);
     for (int exp = 1; m/exp > 0; exp *= 10)
         countSort(vec, exp);

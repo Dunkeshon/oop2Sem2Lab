@@ -121,13 +121,31 @@ public:
 //***************************************************************************************
 
 /*!
+ * \brief pattern Chain of Responsibility
+ * \details have class Radix       - main class of pattern
+ *                                   next - pointer to the class of choosen sort
+ * make object of class Radix and give to the pointer "next" object of choosen class
+ */
+class Radix : public SortAlgorithms
+{
+    Radix *next;
+public:
+    Radix() {}
+    Radix(Radix *n) {
+        next = n;
+    }
+    void sort(std::vector<int> &vec) override;
+    virtual void sorts(std::vector<int> &vec);
+};
+
+/*!
  * \brief The MsdRadix class - msd radix sort algorithm
  * \details radix sort that go from first rank to the last (from hundreds to tenths)
  */
-class MsdRadix : public SortAlgorithms
+class MsdRadix : public Radix
 {
 public:
-    void sort(std::vector<int> &vec);
+    void sorts(std::vector<int> &vec);
 
     void msd_radix_sort(int *first, int *last, int msb = 31);
 };
@@ -150,16 +168,14 @@ public:
     }
 };
 
-//***************************************************************************************
-
 /*!
  * \brief The LsdRadix class - lsd radix sort algorithm
  * \details radix sort that go from last rank to the first (from tenths to hundreds)
  */
-class LsdRadix : public SortAlgorithms
+class LsdRadix : public Radix
 {
 public:
-    void sort(std::vector<int> &vec);
+    void sorts(std::vector<int> &vec);
 
     void countSort(std::vector<int> &vec, int exp);
     int getMax(std::vector<int> &vec);
