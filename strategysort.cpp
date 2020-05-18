@@ -207,7 +207,9 @@ void IterationMerge::sort(std::vector<int> &vec) {
 }
 
 //******************************************************************************************
-
+/*!
+ * \brief helper - vector that is needed for realization algorithms
+ */
 std::vector<int> helper;
 
 /*!
@@ -333,6 +335,7 @@ void MsdRadix::sorts(std::vector<int> &vec) {
  */
 void LsdRadix::sorts(std::vector<int> &vec) {
     int m = getMax(vec);
+
     for (int exp = 1; m/exp > 0; exp *= 10)
         countSort(vec, exp);
 }
@@ -344,24 +347,23 @@ void LsdRadix::sorts(std::vector<int> &vec) {
  */
 void LsdRadix::countSort(std::vector<int> &vec, int exp) {
     int n = vec.size();
-    std::vector<int> output = {0};
-    int i, count[10] = {0};
+        int output[n]; // output array
+        int i, count[10] = {0};
 
-    //!Store count of occurrences in count[]
-    for (i = 0; i < n; i++)
-        count[ (vec[i]/exp)%10 ]++;
+        for (i = 0; i < n; i++)
+            count[ (vec[i]/exp)%10 ]++;
 
-    //!Change count[i] so that count[i] now contains actual position of this digit in output[]
-    for (i = 1; i < 10; i++)
-        count[i] += count[i - 1];
+        for (i = 1; i < 10; i++)
+            count[i] += count[i - 1];
 
-    //! Build the output array
-    for (i = n - 1; i >= 0; i--) {
-        output[count[ (vec[i]/exp)%10 ] - 1] = vec[i];  //!
-        count[ (vec[i]/exp)%10 ]--;
-    }
-    for (i = 0; i < n; i++)
-        vec[i] = output[i];
+        for (i = n - 1; i >= 0; i--)
+        {
+            output[count[ (vec[i]/exp)%10 ] - 1] = vec[i];
+            count[ (vec[i]/exp)%10 ]--;
+        }
+
+        for (i = 0; i < n; i++)
+            vec[i] = output[i];
 }
 
 /*!
