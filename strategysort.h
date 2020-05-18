@@ -196,8 +196,6 @@ public:
 class HeadCount : public SortAlgorithms
 {
 public:
-    virtual void sorts(std::vector<int> &vec, std::vector<int> vecHelp) = 0 ;
-
     virtual ~HeadCount() {}
 };
 
@@ -205,20 +203,20 @@ public:
 class SimplAlgHeadCount: public HeadCount
 {
 public:
-    virtual void sorts(std::vector<int> &vec, std::vector<int> vecHelp);
+    virtual void sort(std::vector<int> &vec);
 };
 //! Primitive class
 class RobustAlgHeadCount: public HeadCount
 {
 public:
-    virtual void sorts(std::vector<int> &vec, std::vector<int> vecHelp);
+    virtual void sort(std::vector<int> &vec);
 };
 
 //! Composite class
 /*!
  * \brief The CompositeHeadCount class - main class of this kind of sorting
  * (we will create objects of this class when use it)
- * \details classic function "sort" will call function "sorts" that will make some algorithm
+ * \details classic function "sort" that will make some algorithm
  * and than call one of the primitive "sort"(function from classses SimplAlgHeadCount or RobustAlgHeadCount)
  */
 class CompositeHeadCount: public HeadCount
@@ -226,12 +224,8 @@ class CompositeHeadCount: public HeadCount
 public:
     void sort(std::vector<int> &vec) override;
 
-    CompositeHeadCount( HeadCount* comp): headCountStrategy(comp) {}
-    ~CompositeHeadCount() { delete headCountStrategy; }
-
-    void sorts(std::vector<int> &vec, std::vector<int> c = {0}) override;
-
-
+        CompositeHeadCount( HeadCount* comp) { headCountStrategy = comp;}
+        ~CompositeHeadCount() { delete headCountStrategy; }
 private:
     HeadCount* headCountStrategy;
 };

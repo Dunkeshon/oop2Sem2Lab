@@ -208,12 +208,7 @@ void IterationMerge::sort(std::vector<int> &vec) {
 
 //******************************************************************************************
 
-/*!
- * \brief CompositeHeadCount::sort main function that will cal sorts of CompositeHeadCount class
- */
-void CompositeHeadCount::sort(std::vector<int> &vec) {
-    sorts(vec);
-}
+std::vector<int> helper;
 
 /*!
  * \brief CompositeHeadCount::sorts Composite sort that will call SimplAlgHeadCount::sorts or RobustAlgHeadCount::sorts
@@ -221,19 +216,20 @@ void CompositeHeadCount::sort(std::vector<int> &vec) {
  * \param vec - vector that is needed to be sort
  * \param c - supporting vector
  */
-void CompositeHeadCount::sorts(std::vector<int> &vec, std::vector<int> c) {
+void CompositeHeadCount::sort(std::vector<int> &vec) {
+    helper.clear();
     int maxim = vec[0];
     for (unsigned int i = 1; i < vec.size(); i++) {
         if (maxim < vec[i]) maxim = vec[i];
     }
     //std::vector<int> c(maxim);
     for (int i = 0; i <= maxim; i++) {
-        c[i] = 0;
+        helper.push_back(0);
     }
     for (unsigned int i = 0; i < vec.size(); i++) {
-        c[vec[i]] = c[vec[i]] + 1;
+        helper[vec[i]] = helper[vec[i]] + 1;
     }
-    headCountStrategy->sorts(vec, c);
+    headCountStrategy->sort(vec);
 }
 
 /*!
@@ -242,10 +238,10 @@ void CompositeHeadCount::sorts(std::vector<int> &vec, std::vector<int> c) {
  * \param vec - vector that is needed to be sort
  * \param vecHelp - supporting vector
  */
-void SimplAlgHeadCount::sorts(std::vector<int> &vec, std::vector<int> vecHelp) {
+void SimplAlgHeadCount::sort(std::vector<int> &vec) {
     int b = 0;
-        for (unsigned int i = 0; i < vecHelp.size(); i++){
-            for (int j = 0; j < vecHelp[i]; j++) {
+        for (unsigned int i = 0; i < helper.size(); i++){
+            for (int j = 0; j < helper[i]; j++) {
 
                 vec[b] = i;         //!
                 b = b + 1;
@@ -257,14 +253,17 @@ void SimplAlgHeadCount::sorts(std::vector<int> &vec, std::vector<int> vecHelp) {
  * \brief RobustAlgHeadCount::sorts "strong" algorithm
  * \details make sorted "finalvec" from elements of vector "vec"
  */
-void RobustAlgHeadCount::sorts(std::vector<int> &vec, std::vector<int> vecHelp) {
+void RobustAlgHeadCount::sort(std::vector<int> &vec) {
     std::vector<int> finalVec;
-    for (unsigned int i = 1; i < vecHelp.size(); i++){
-        vecHelp[i] = vecHelp[i - 1];
+    for (unsigned int i = 0; i < vec.size(); i++){
+            finalVec.push_back(0);
+        }
+    for (unsigned int i = 1; i < helper.size(); i++){
+        helper[i] = helper[i] + helper[i - 1];
     }
-    for (unsigned int j = vec.size() - 1; j >= 0; j--) {
-        vecHelp[vec[j]] = vecHelp[vec[j]] - 1;
-        finalVec[vecHelp[vec[j]]] = vec[j];
+    for (int j = vec.size() - 1; j >= 0; j--) {
+        helper[vec[j]] = helper[vec[j]] - 1;
+        finalVec[helper[vec[j]]] = vec[j];
     }
     for (unsigned int i = 0; i < vec.size(); i++) {
         vec[i] = finalVec[i];
