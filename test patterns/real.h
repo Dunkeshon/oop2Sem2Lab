@@ -79,6 +79,7 @@ class Radix : public SortAlgorithms
     Radix *next;
 public:
     Radix() {next = nullptr;}
+    ~Radix() { delete next; }
     explicit Radix(Radix *n) {next = n;}
     void sort(std::vector<int> &vec) override;
     virtual void sorts(std::vector<int> &vec);
@@ -147,61 +148,6 @@ public:
 private:
     HeadCount* headCountStrategy;
 };
-
-//// Component
-//class Unit: public SortAlgorithms
-//{
-//public:
-//    virtual int getStrength() = 0;
-//    virtual ~Unit() {}
-//};
-//
-//// Primitives
-//class Archer: public Unit
-//{
-//public:
-//    virtual int getStrength() {
-//        return 1;
-//    }
-//};
-//class Infantryman: public Unit
-//{
-//public:
-//    virtual int getStrength() {
-//        return 2;
-//    }
-//};
-//
-//class Horseman: public Unit
-//{
-//public:
-//    virtual void sort(std::vector<int> &vec);
-//    virtual int getStrength() {
-//        return 3;
-//    }
-//};
-//
-//// Composite
-//class CompositeUnit: public Unit
-//{
-//public:
-//    void sort(std::vector<int> &vec) override;
-//    int getStrength() {
-//        int total = 0;
-//        total = c->getStrength();
-//        return total;
-//    }
-//    CompositeUnit(Unit* p) {
-//        c = p;
-//    }
-//    ~CompositeUnit() {
-//        delete c;
-//    }
-//private:
-//    Unit* c;
-//};
-
-
 
 class strategySort
 {

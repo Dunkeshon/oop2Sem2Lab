@@ -203,39 +203,31 @@ void MsdRadix::sorts(std::vector<int> &vec) {
 //******************************************************************************************
 
 void LsdRadix::sorts(std::vector<int> &vec) {
-    std::cout << "step_1" << std::endl;
     int m = getMax(vec);
-    std::cout << "step_1.5" << std::endl;
-    int test = m;
-    for (int exp = 1; m/exp > 0; exp = exp*10) {
-        std::cout << "step_newwwwwwwwwwwwwwww" << m/exp << std::endl;
+
+    for (int exp = 1; m/exp > 0; exp *= 10)
         countSort(vec, exp);
-    }
 }
 
 void LsdRadix::countSort(std::vector<int> &vec, int exp) {
-    std::cout << "step_2" << std::endl;
     int n = vec.size();
-    std::vector<int> output = {0}; //--------------------------------------------------------------
+    int output[n]; // output array
     int i, count[10] = {0};
-    std::cout << "step_3" << std::endl;
-    //!Store count of occurrences in count[]
+
     for (i = 0; i < n; i++)
         count[ (vec[i]/exp)%10 ]++;
-    std::cout << "step_4" << std::endl;
+
     for (i = 1; i < 10; i++)
         count[i] += count[i - 1];
-    for (i = n - 1; i >= 0; i--) {
-        //std::cout << output[count[(vec[i]/exp)%10] - 1] << std::endl;
-        std::cout << vec[i] << std::endl;
-        output[count[ (vec[i]/exp)%10 ] - 1] = vec[i];  //!
-        std::cout << "step_5" << std::endl;
+
+    for (i = n - 1; i >= 0; i--)
+    {
+        output[count[ (vec[i]/exp)%10 ] - 1] = vec[i];
         count[ (vec[i]/exp)%10 ]--;
     }
-    std::cout << "step_6" << std::endl;
+
     for (i = 0; i < n; i++)
         vec[i] = output[i];
-    std::cout << "step_7" << std::endl;
 }
 
 int LsdRadix::getMax(std::vector<int> &vec) {
@@ -248,17 +240,6 @@ int LsdRadix::getMax(std::vector<int> &vec) {
 }
 
 
-//void HeadCount::setHelper(std::vector<int> helping) {
-//    for (int i = 0; i < helping.size(); i++) {
-//        helper.push_back(helping[i]);
-//    }
-//    std::cout << "suka " << helper.size() << std::endl;
-//}
-//
-//std::vector<int> HeadCount::getHelper() {
-//    std::cout << "zaebal " << helper.size() << std::endl;
-//    return helper;
-//}
 std::vector<int> helper; ///////////////////////////
 
 void CompositeHeadCount::sort(std::vector<int> &vec) {
@@ -291,9 +272,6 @@ void RobustAlgHeadCount::sort(std::vector<int> &vec) {
     std::vector<int> finalVec;
     for (unsigned int i = 0; i < vec.size(); i++){ ////////////////////////////////
         finalVec.push_back(0);
-    }
-    for (unsigned int i = 0; i < helper.size(); i++){
-        std::cout << i << " " << helper[i] << std::endl;
     }
     for (unsigned int i = 1; i < helper.size(); i++){
         helper[i] = helper[i] + helper[i - 1];////////////////////////////////////////////

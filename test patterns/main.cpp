@@ -4,9 +4,9 @@
 
 int main() {
     auto* p = new strategySort(new SelectionSort);
-    std::vector<int> exampl = {1, -23, -7, 4};
-    p->sort(exampl);
-    for (auto &data:exampl) {
+    std::vector<int> exampl_1 = {1, -23, -7, 4};
+    p->sort(exampl_1);
+    for (auto &data:exampl_1) {
         std::cout << data << " ";
     }
     std::cout << std::endl;
@@ -57,41 +57,35 @@ int main() {
     std::cout << std::endl;
     delete p;
 
-    //ATENTION PLES: IT IS NOT WORK FOR NEGATIVES and sometimes with another shit
-//    p = new strategySort((new Radix(new LsdRadix)));
-//    std::vector<int> exampl_7 = {1, 54, 48, 89};
-//    p->sort(exampl_7);
-//    std::cout << "step_00" << std::endl;
-//    for (auto &data:exampl_7) {
-//        std::cout << data << " ";
-//    }
-//    std::cout << std::endl;
-//    std::cout << "step_000" << std::endl;
-//    delete p;
+    //ATENTION PLES: IT IS NOT WORK FOR NEGATIVES
+    p = new strategySort((new Radix(new LsdRadix)));
+    std::vector<int> exampl_7 = {1, 34, 12, 100, 89, 0, 34, 0, 0};
+    p->sort(exampl_7);
+    for (auto &data:exampl_7) {
+        std::cout << data << " ";
+    }
+    std::cout << std::endl;
+    delete p;
 
-//    CompositeUnit* army = new CompositeUnit(new Horseman);
-//
-//    std::cout << "Roman army damaging strength is " << army->getStrength() << std::endl;
-//    delete army;
-
-
-    auto* g = new strategySort(new CompositeHeadCount(new RobustAlgHeadCount));
+    //ATENTION PLES: IT IS NOT WORK FOR NEGATIVES
+    p = new strategySort(new CompositeHeadCount(new RobustAlgHeadCount));
     std::vector<int> exampl_8 = {1, 35, 0, 34, 16, 0, 35};
-    g->sort(exampl_8);
+    p->sort(exampl_8);
     for (auto &data:exampl_8) {
         std::cout << data << " ";
     }
     std::cout << std::endl;
-    delete g;
+    delete p;
 
-    auto* q = new strategySort(new CompositeHeadCount(new SimplAlgHeadCount));
+    //ATENTION PLES: IT IS NOT WORK FOR NEGATIVES
+    p = new strategySort(new CompositeHeadCount(new SimplAlgHeadCount));
     std::vector<int> exampl_9 = {34, 34, 0, 0, 35};
-    q->sort(exampl_9);
+    p->sort(exampl_9);
     for (auto &data:exampl_9) {
         std::cout << data << " ";
     }
     std::cout << std::endl;
-    delete q;
+    delete p;
 
     std::cout << "Hello, World!" << std::endl;
     return 0;
