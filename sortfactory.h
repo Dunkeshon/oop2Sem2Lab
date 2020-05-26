@@ -35,8 +35,14 @@ public:
         LsdRadix * sort = new LsdRadix;
         return sort ;
     }
-    // TO DO
-
+    static SortAlgorithms * simpleHeadCount(){
+        HeadCount *sort = new CompositeHeadCount(new SimplAlgHeadCount);
+        return sort;
+    }
+    static SortAlgorithms * robustHeadCount(){
+        HeadCount *sort = new CompositeHeadCount(new RobustAlgHeadCount);
+        return sort;
+    }
 
 
 };

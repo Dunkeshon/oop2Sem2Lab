@@ -19,7 +19,9 @@ public:
         MERGE_RECURSIVE_SORT,
         MERGE_ITERATIVE_SORT,
         LSD_RADIX,
-        MSD_RADIX
+        MSD_RADIX,
+        SIMPLE_HEAD_COUNT,
+        ROBUST_HEAD_COUNT
     };
     Q_ENUM(SortChoice)
 };
@@ -30,6 +32,7 @@ public:
  */
 class SortAlgorithms
 {
+
 public:
 
     virtual ~SortAlgorithms() {}

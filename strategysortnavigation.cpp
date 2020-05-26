@@ -57,7 +57,11 @@ void StrategySortNavigation::selectSort(SortsEnums::SortChoice choosenSort){
         break;
     case SortsEnums::SortChoice ::LSD_RADIX : m_strategy = SortFactory::lsdRadix();
         break;
-        // TO DO
+    case SortsEnums::SortChoice ::SIMPLE_HEAD_COUNT : m_strategy = SortFactory::simpleHeadCount();
+        break;
+    case SortsEnums::SortChoice ::ROBUST_HEAD_COUNT : m_strategy = SortFactory::robustHeadCount();
+        break;
+
     default:
         throw ("Wrong enum ");
         break;
