@@ -3,7 +3,7 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include "strategysort.h"
-#include "strategysortnavigation.h"
+#include "controller.h"
 
 int main(int argc, char *argv[])
 {
@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
     qmlRegisterUncreatableType<SortsEnums>("SortVisualizer",1,0,"SortChoice",
         QStringLiteral("This object should not be created in qml"));
 
-    StrategySortNavigation navigationClass;
+    Controller navigationClass;
 
     QQmlApplicationEngine engine;
 

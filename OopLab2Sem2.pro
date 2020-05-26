@@ -14,11 +14,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+        controller.cpp \
         main.cpp \
         randomize.cpp \
+        sortRealization.cpp \
         sortfactory.cpp \
-        strategysort.cpp \
-        strategysortnavigation.cpp
+        strategysort.cpp
 
 RESOURCES += qml.qrc
 
@@ -34,7 +35,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
+    controller.h \
     randomize.h \
+    sortRealization.h \
     sortfactory.h \
-    strategysort.h \
-    strategysortnavigation.h
+    strategysort.h
