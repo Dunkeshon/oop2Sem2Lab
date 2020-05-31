@@ -1,5 +1,6 @@
 #include "strategysort.h"
 #include <algorithm>
+#include <QVarLengthArray>
 
 /*!
  * \brief swapVec change values of two elements
@@ -117,13 +118,14 @@ void MergeSort::mergeVec(std::vector<int> &vec, int l, int c, int r) {
     int n2 =  r - c;
 
     //!create temp arrays
-    int L[n1], R[n2];
+    QVarLengthArray<int, 1024> L(n1);
+    QVarLengthArray<int, 1024> R(n2);
 
     //!Copy data to temp arrays L[] and R[]
     for (i = 0; i < n1; i++)
         L[i] = vec[l + i];
     for (j = 0; j < n2; j++)
-        R[j] = vec[c + 1+ j];
+        R[j] = vec[c + 1 + j];
 
     i = 0;   //!Initial index of first subarray
     j = 0;   //!Initial index of second subarray
@@ -317,7 +319,9 @@ void MsdRadix::msd_radix_sort(int *first, int *last, int msb)
  * \brief MsdRadix::sort - main function of msd radix sort
  */
 void MsdRadix::sorts(std::vector<int> &vec) {
-    int num[vec.size()];
+    int n = vec.size();
+    int *num = new int[n];
+    //int num[n];
     std::copy( vec.begin(), vec.end(), num );
 
     msd_radix_sort(num, num + vec.size());
@@ -346,8 +350,10 @@ void LsdRadix::sorts(std::vector<int> &vec) {
  * \param exp - grade of number (tenth/hundreds)
  */
 void LsdRadix::countSort(std::vector<int> &vec, int exp) {
+
     int n = vec.size();
-        int output[n]; // output array
+    int *output = new int[n];
+        //int output[n]; // output array
         int i, count[10] = {0};
 
         for (i = 0; i < n; i++)
