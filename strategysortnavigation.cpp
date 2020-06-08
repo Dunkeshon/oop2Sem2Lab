@@ -22,8 +22,11 @@ void StrategySortNavigation::sort()
         throw("Your vector is empty.You need to create it firstly");
     }
     else{
-      //  m_timePassed = QTimer::msecsSinceStartOfDay()
+        int time1 = QTime::currentTime().msecsSinceStartOfDay();
         m_strategy->sort(vectorToSort);
+        int time2 = QTime::currentTime().msecsSinceStartOfDay();
+        setTimePassed(time2-time1);
+        setVectorAfter(makeString(vectorToSort));
     }
 }
 
@@ -36,6 +39,7 @@ void StrategySortNavigation::randomizeVector(int howManyNumbers, int from, int t
     for( int i = 0; i < howManyNumbers;i++){
         vectorToSort.push_back(Randomizing::generateRandomInt(from,to));
     }
+    setVectorBefore(makeString(vectorToSort));
 }
 
 /*
