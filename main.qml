@@ -20,6 +20,8 @@ Window {
         property alias from: fromV
         property alias to: toV
 
+        property alias confirmB: confirm
+
         Item {
             anchors.centerIn: parent
             width: 200
@@ -34,9 +36,10 @@ Window {
                 id: countV
                 height: 40
                 width: 200
-                placeholderText: "COUNT OF ELEMENTS"
+                placeholderText: "AMOUNT OF ELEMENTS"
                 anchors.top: textV.bottom
                 anchors.margins: 10
+                validator: IntValidator { bottom: 0; top: 10000 }
                 anchors.horizontalCenter: parent.horizontalCenter
             }
             TextField {
@@ -46,6 +49,7 @@ Window {
                 placeholderText: "FROM"
                 anchors.top: countV.bottom
                 anchors.topMargin: 10
+                validator: IntValidator { bottom: 0; top: 1000000 }
                 anchors.left: countV.left
             }
             TextField {
@@ -55,6 +59,7 @@ Window {
                 placeholderText: "TO"
                 anchors.top: countV.bottom
                 anchors.topMargin: 10
+                validator: IntValidator { bottom: 0; top: 1000000 }
                 anchors.right: countV.right
             }
             Button {
@@ -67,7 +72,8 @@ Window {
                 visible: F.checkFields() ? true : false
                 anchors.horizontalCenter: parent.horizontalCenter
                 onClicked: {
-                    //VECTOR GENERATE
+                    navigationClass.randomizeVector(parseInt(countV.text), parseInt(fromV.text), parseInt(toV.text))
+                    results.text = "BEFORE: " + navigationClass.vectorBefore + "\n\n"
 
                     F.clearAllFields()
                     vecGen.visible = false
@@ -83,5 +89,15 @@ Window {
         anchors.right: parent.right
         anchors.top: parent.top
         height: 40
+    }
+    TextArea {
+        id: results
+        anchors.top: topPannel.bottom
+        visible: vecGen.visible ? false : true
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+        readOnly: true
+        wrapMode: TextArea.WordWrap
     }
 }

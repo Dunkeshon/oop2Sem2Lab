@@ -27,10 +27,10 @@ private:
         QString newString;
         for(size_t i=0;i<fromVector.size();i++){
             if((i+1)!=fromVector.size()){
-                newString.push_back(QString::number(i));
+                newString.push_back(QString::number(i)+QString(", "));
             }
             else{
-                newString.push_back(QString::number(i)+",");
+                newString.push_back(QString::number(i));
             }
         }
         return newString;
@@ -47,7 +47,7 @@ public:
      * @brief sort your array, based on what sort you have selected earlier
      * @details you need to randomizeVector and selectSort firstly
     */
-    void sort() ;
+    Q_INVOKABLE void sort() ;
     /*
       * @param howManyNumbers - size of array we want to create
       * @param from - begin of randomizing range

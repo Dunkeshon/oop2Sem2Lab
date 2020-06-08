@@ -1,7 +1,7 @@
 import QtQuick 2.0
-import QtQuick.Controls 1.4
-import SortVisualizer 1.0
+import QtQuick.Controls 1.0
 import "functions.js" as F
+import SortVisualizer 1.0
 
 Item {
     id: mainItem
@@ -40,7 +40,9 @@ Item {
                 "Selection Sort"
             ]
 
-            onCurrentIndexChanged: console.debug(sorts.currentIndex)
+            onCurrentIndexChanged: {
+                results.text = "BEFORE: " + navigationClass.vectorBefore + "\n\n"
+            }
         }
 
         Button {
@@ -62,6 +64,9 @@ Item {
             anchors.rightMargin: 10
             onClicked: {
                 //SORT AND PRINT AFTER VECTOR AND SET ENUM
+                F.startSort()
+                navigationClass.sort()
+                results.text += "AFTER: " + navigationClass.vectorAfter + "\n\n" + "TIME: " + navigationClass.timePassed
             }
         }
     }

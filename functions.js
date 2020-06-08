@@ -2,23 +2,23 @@
 function startSort() {
 
     switch(sorts.currentIndex) {
-    case 0: navigationSort.selectSort(SortChoice.INSERTION_SORT);
+    case 0: navigationClass.selectSort(Sortchoice.INSERTION_SORT);
         break;
-    case 1: navigationSort.selectSort(SortChoice.QUICK_SORT);
+    case 1: navigationClass.selectSort(Sortchoice.QUICK_SORT);
         break;
-    case 2: navigationSort.selectSort(SortChoice.MERGE_RECURSIVE_SORT);
+    case 2: navigationClass.selectSort(Sortchoice.MERGE_RECURSIVE_SORT);
         break;
-    case 3: navigationSort.selectSort(SortChoice.MERGE_ITERATIVE_SORT);
+    case 3: navigationClass.selectSort(Sortchoice.MERGE_ITERATIVE_SORT);
         break;
-    case 4: navigationSort.selectSort(SortChoice.LSD_RADIX);
+    case 4: navigationClass.selectSort(Sortchoice.LSD_RADIX);
         break;
-    case 5: navigationSort.selectSort(SortChoice.MSD_RADIX);
+    case 5: navigationClass.selectSort(Sortchoice.MSD_RADIX);
         break;
-    case 6: navigationSort.selectSort(SortChoice.SIMPLE_HEAD_COUNT);
+    case 6: navigationClass.selectSort(Sortchoice.SIMPLE_HEAD_COUNT);
         break;
-    case 7: navigationSort.selectSort(SortChoice.ROBUST_HEAD_COUNT);
+    case 7: navigationClass.selectSort(Sortchoice.ROBUST_HEAD_COUNT);
         break;
-    case 8: navigationSort.selectSort(SortChoice.SELECTION_SORT);
+    case 8: navigationClass.selectSort(Sortchoice.SELECTION_SORT);
         break;
     default: console.debug("WRONG ENUM")
         break;
@@ -29,6 +29,8 @@ function startSort() {
 function checkFields() {
     if(vecGen.count.text==="" || vecGen.from.text==="" || vecGen.to.text==="")
         return false
+//    if(vecGen.from.text < vecGen.to.text)
+//        return false
     return true
 }
 

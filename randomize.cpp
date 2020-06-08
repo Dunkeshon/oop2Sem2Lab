@@ -18,7 +18,7 @@ void Randomizing::shuffleArray(T * myarray,int size){
 // @param to end of randomizing range
 int Randomizing::generateRandomInt(int from,int to){
     std::random_device rd;   // non-deterministic generator
-    std::mt19937 gen(rd());  // to seed mersenne twister.
+    std::default_random_engine gen(rd());
     std::uniform_int_distribution<> dist(from,to);
     return dist(gen); // returns generated item
 }

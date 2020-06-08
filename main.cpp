@@ -7,14 +7,16 @@
 
 int main(int argc, char *argv[])
 {
+    srand((int)time(0));
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
     QGuiApplication app(argc, argv);
 
     QCoreApplication::setOrganizationName("Core_Direction");
     QCoreApplication::setApplicationName("SortVisualizer");
-    qmlRegisterUncreatableType<SortsEnums>("SortVisualizer",1,0,"SortChoice",
+    qmlRegisterUncreatableType<SortsEnums>("SortVisualizer",1,0,"Sortchoice",
         QStringLiteral("This object should not be created in qml"));
+    qRegisterMetaType<SortsEnums::SortChoice>("SortEnums::SortChoice");
 
     StrategySortNavigation navigationClass;
 
