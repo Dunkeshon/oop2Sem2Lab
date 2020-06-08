@@ -14,6 +14,7 @@ class SortsEnums : public QObject{
     Q_GADGET
 public:
     enum SortChoice{
+        SELECTION_SORT,
         INSERTION_SORT,
         QUICK_SORT,
         MERGE_RECURSIVE_SORT,

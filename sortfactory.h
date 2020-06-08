@@ -11,6 +11,10 @@ private:
     SortFactory(const SortFactory &) = delete;
 
 public:
+    static SortAlgorithms * selectionSort(){
+        SelectionSort * sort = new SelectionSort;
+        return sort ;
+    }
     static SortAlgorithms * insertionSort(){
         InsertionSort * sort = new InsertionSort;
         return sort ;

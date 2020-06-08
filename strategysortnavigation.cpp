@@ -22,6 +22,7 @@ void StrategySortNavigation::sort()
         throw("Your vector is empty.You need to create it firstly");
     }
     else{
+      //  m_timePassed = QTimer::msecsSinceStartOfDay()
         m_strategy->sort(vectorToSort);
     }
 }
@@ -45,6 +46,8 @@ void StrategySortNavigation::selectSort(SortsEnums::SortChoice choosenSort){
     // factory switch case based on enum
     // m_strategy = classCreatedByFactory
     switch (choosenSort) {
+    case SortsEnums::SortChoice ::SELECTION_SORT : m_strategy = SortFactory::selectionSort();
+        break;
     case SortsEnums::SortChoice ::INSERTION_SORT : m_strategy = SortFactory::insertionSort();
         break;
     case SortsEnums::SortChoice ::QUICK_SORT : m_strategy = SortFactory::quickSort();
