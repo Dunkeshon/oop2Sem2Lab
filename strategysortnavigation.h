@@ -12,13 +12,12 @@ using std::vector ;
 class StrategySortNavigation : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(double timePassed READ timePassed WRITE setTimePassed NOTIFY timePassedChanged)
+    Q_PROPERTY(int timePassed READ timePassed WRITE setTimePassed NOTIFY timePassedChanged)
     Q_PROPERTY(QString vectorBefore READ vectorBefore WRITE setVectorBefore NOTIFY vectorBeforeChanged)
     Q_PROPERTY(QString vectorAfter READ vectorAfter WRITE setVectorAfter NOTIFY vectorAfterChanged)
 private:
     SortAlgorithms* m_strategy;
 
-    double m_timePassed;
 
     QString m_vectorBefore;
 
@@ -36,6 +35,8 @@ private:
         }
         return newString;
     }
+
+    int m_timePassed;
 
 public:
     StrategySortNavigation(QObject *parent = nullptr);
@@ -57,10 +58,7 @@ public:
       *brief creates m_strategy of needed sort, based on enums
     */
     Q_INVOKABLE void selectSort(SortsEnums::SortChoice choosenSort);
-    double timePassed() const
-    {
-        return m_timePassed;
-    }
+
     QString vectorBefore() const
     {
         return m_vectorBefore;
@@ -71,15 +69,13 @@ public:
         return m_vectorAfter;
     }
 
-public slots:
-    void setTimePassed(double timePassed)
+    int timePassed() const
     {
-        qWarning("Floating point comparison needs context sanity check");
-        if (qFuzzyCompare(m_timePassed, timePassed))
-            return;
-        m_timePassed = timePassed;
-        emit timePassedChanged(m_timePassed);
+        return m_timePassed;
     }
+
+public slots:
+
     void setVectorBefore(QString vectorBefore)
     {
         if (m_vectorBefore == vectorBefore)
@@ -98,10 +94,19 @@ public slots:
         emit vectorAfterChanged(m_vectorAfter);
     }
 
+    void setTimePassed(int timePassed)
+    {
+        if (m_timePassed == timePassed)
+            return;
+
+        m_timePassed = timePassed;
+        emit timePassedChanged(m_timePassed);
+    }
+
 signals:
-    void timePassedChanged(double timePassed);
     void vectorBeforeChanged(QString vectorBefore);
     void vectorAfterChanged(QString vectorAfter);
+    void timePassedChanged(int timePassed);
 };
 
 #endif // STRATEGYSORTNAVIGATION_H
