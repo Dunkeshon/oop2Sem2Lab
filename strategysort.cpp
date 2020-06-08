@@ -5,7 +5,7 @@
  * \brief swapVec change values of two elements
  * \details it is used several times so it is here
  */
-void swapVec (int * a, int * b) {
+void swapVec (int * a, int * b) {// ссылка на вектор и на два его индекса
     int tmp;
     tmp = * a;
     * a = * b;
@@ -49,7 +49,7 @@ void InsertionSort::sort(std::vector<int> &vec){
         j = i - 1;
         //! if previous element is bigger than current
         //! current = value of previous
-        while((j >= 0) && (vec[j] > key)){
+        while((j >= 0) && (vec[j] > key)){ // привязка по значению только к тому чье значение меняется
             vec[j+1] = vec[j];  //!
             j--;
         }
@@ -120,9 +120,9 @@ void MergeSort::mergeVec(std::vector<int> &vec, int l, int c, int r) {
     int L[n1], R[n2];
 
     //!Copy data to temp arrays L[] and R[]
-    for (i = 0; i < n1; i++)
+    for (i = 0; i < n1; i++)// по значению
         L[i] = vec[l + i];
-    for (j = 0; j < n2; j++)
+    for (j = 0; j < n2; j++) // j для компилятора это тот кто после i
         R[j] = vec[c + 1+ j];
 
     i = 0;   //!Initial index of first subarray
@@ -218,7 +218,7 @@ std::vector<int> helper;
  * \param vec - vector that is needed to be sort
  * \param c - supporting vector
  */
-void CompositeHeadCount::sort(std::vector<int> &vec) {
+void CompositeHeadCount::sort(std::vector<int> &vec) { // не интересует
     helper.clear();
     int maxim = vec[0];
     for (unsigned int i = 1; i < vec.size(); i++) {
@@ -244,7 +244,6 @@ void SimplAlgHeadCount::sort(std::vector<int> &vec) {
     int b = 0;
         for (unsigned int i = 0; i < helper.size(); i++){
             for (int j = 0; j < helper[i]; j++) {
-
                 vec[b] = i;         //!
                 b = b + 1;
             }
@@ -255,7 +254,7 @@ void SimplAlgHeadCount::sort(std::vector<int> &vec) {
  * \brief RobustAlgHeadCount::sorts "strong" algorithm
  * \details make sorted "finalvec" from elements of vector "vec"
  */
-void RobustAlgHeadCount::sort(std::vector<int> &vec) {
+void RobustAlgHeadCount::sort(std::vector<int> &vec) { // в каждом цикле пробег компилятора
     std::vector<int> finalVec;
     for (unsigned int i = 0; i < vec.size(); i++){
             finalVec.push_back(0);
