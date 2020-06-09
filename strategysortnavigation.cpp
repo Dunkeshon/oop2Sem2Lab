@@ -25,11 +25,11 @@ void StrategySortNavigation::sort()
     else{
         unsigned int start_time =  clock();
         m_strategy->sort(vectorToSort);
-
-        setVectorAfter(makeString(vectorToSort));
         unsigned int end_time = clock();
         unsigned int search_time = end_time - start_time;
         setTimePassed(search_time);
+
+        setVectorAfter(makeString(vectorToSort));
     }
 }
 
