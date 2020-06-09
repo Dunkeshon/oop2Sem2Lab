@@ -3,22 +3,17 @@
 
 using namespace Randomizing;
 
-// shuffle given array
-// @param myarray array( pointer to first element)
-// @param size size of array
-template <typename T>
-void Randomizing::shuffleArray(T * myarray,int size){
-    std::random_device rd; // non-deterministic generator
-    std::mt19937 gen(rd()); // to seed mersenne twister.
-    std::shuffle(&(myarray[0]),&(myarray[size-1]),gen);
-}
+int Randomizing::generateRandomInt(int from, int to)
+{
+    // our initial starting seed is 5323
+    static unsigned int seed{ 5323 };
 
-// generates random integer from given range
-// @param from begin of randomizing range
-// @param to end of randomizing range
-int Randomizing::generateRandomInt(int from,int to){
-    std::random_device rd;   // non-deterministic generator
-    std::default_random_engine gen(rd());
-    std::uniform_int_distribution<> dist(from,to);
-    return dist(gen); // returns generated item
+    // Take the current seed and generate a new value from it
+    // Due to our use of large constants and overflow, it would be
+    // hard for someone to casually predict what the next number is
+    // going to be from the previous one.
+    seed = 8253729 * seed + 2396403;
+
+    // Take the seed and return a value between 0 and 32767
+    return seed % to + from;
 }

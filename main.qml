@@ -90,14 +90,16 @@ Window {
         anchors.top: parent.top
         height: 40
     }
-    TextArea {
-        id: results
+    ScrollView {
         anchors.top: topPannel.bottom
         visible: vecGen.visible ? false : true
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.bottom: parent.bottom
-        readOnly: true
-        wrapMode: TextArea.WordWrap
+        TextArea {
+            id: results
+            readOnly: true
+            wrapMode: TextArea.WordWrap
+        }
     }
 }

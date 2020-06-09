@@ -27,10 +27,10 @@ private:
         QString newString;
         for(size_t i=0;i<fromVector.size();i++){
             if((i+1)!=fromVector.size()){
-                newString.push_back(QString::number(i)+QString(", "));
+                newString.push_back(QString::number(fromVector[i])+QString(", "));
             }
             else{
-                newString.push_back(QString::number(i));
+                newString.push_back(QString::number(fromVector[i]));
             }
         }
         return newString;

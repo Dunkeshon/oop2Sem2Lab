@@ -1,4 +1,5 @@
 #include "strategysortnavigation.h"
+#include <ctime>
 
 
 
@@ -22,11 +23,13 @@ void StrategySortNavigation::sort()
         throw("Your vector is empty.You need to create it firstly");
     }
     else{
-        int time1 = QTime::currentTime().msecsSinceStartOfDay();
+        unsigned int start_time =  clock();
         m_strategy->sort(vectorToSort);
-        int time2 = QTime::currentTime().msecsSinceStartOfDay();
-        setTimePassed(time2-time1);
+
         setVectorAfter(makeString(vectorToSort));
+        unsigned int end_time = clock();
+        unsigned int search_time = end_time - start_time;
+        setTimePassed(search_time);
     }
 }
 
