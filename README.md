@@ -1,2 +1,2 @@
 # oop2Sem2Lab
-<h1>Different sorts with QUI using c++ qml and js </h1>
+<h3>Different sorts with GUI using c++ qml and js </h3>
